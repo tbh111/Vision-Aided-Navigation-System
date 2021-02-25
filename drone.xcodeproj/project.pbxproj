@@ -1,0 +1,369 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2593F22525E797A500FE9A18 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2593F22425E797A500FE9A18 /* main.cpp */; };
+		2593F26125E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25825E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib */; };
+		2593F26225E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25925E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib */; };
+		2593F26325E7CCF500FE9A18 /* libopencv_imgcodecs.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25A25E7CCF500FE9A18 /* libopencv_imgcodecs.4.0.0.dylib */; };
+		2593F26425E7CCF500FE9A18 /* libopencv_features2d.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25B25E7CCF500FE9A18 /* libopencv_features2d.4.0.0.dylib */; };
+		2593F26525E7CCF500FE9A18 /* libopencv_core.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25C25E7CCF500FE9A18 /* libopencv_core.4.0.0.dylib */; };
+		2593F26625E7CCF500FE9A18 /* libopencv_xfeatures2d.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25D25E7CCF500FE9A18 /* libopencv_xfeatures2d.4.0.0.dylib */; };
+		2593F26725E7CCF500FE9A18 /* libopencv_imgproc.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25E25E7CCF500FE9A18 /* libopencv_imgproc.4.0.0.dylib */; };
+		2593F26825E7CCF500FE9A18 /* libopencv_video.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25F25E7CCF500FE9A18 /* libopencv_video.4.0.0.dylib */; };
+		2593F26925E7CCF500FE9A18 /* libopencv_videoio.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F26025E7CCF500FE9A18 /* libopencv_videoio.4.0.0.dylib */; };
+		2593F27325E7D3B400FE9A18 /* libAirLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F27025E7D3B400FE9A18 /* libAirLib.a */; };
+		2593F27425E7D3B400FE9A18 /* libMavLinkCom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F27125E7D3B400FE9A18 /* libMavLinkCom.a */; };
+		2593F27525E7D3B400FE9A18 /* librpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F27225E7D3B400FE9A18 /* librpc.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2593F21F25E797A500FE9A18 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2593F22125E797A500FE9A18 /* drone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = drone; sourceTree = BUILT_PRODUCTS_DIR; };
+		2593F22425E797A500FE9A18 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2593F25825E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.4.0.0.dylib; path = opencv_install/lib/libopencv_highgui.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25925E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.4.0.0.dylib; path = opencv_install/lib/libopencv_calib3d.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25A25E7CCF500FE9A18 /* libopencv_imgcodecs.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.0.0.dylib; path = opencv_install/lib/libopencv_imgcodecs.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25B25E7CCF500FE9A18 /* libopencv_features2d.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.4.0.0.dylib; path = opencv_install/lib/libopencv_features2d.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25C25E7CCF500FE9A18 /* libopencv_core.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.4.0.0.dylib; path = opencv_install/lib/libopencv_core.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25D25E7CCF500FE9A18 /* libopencv_xfeatures2d.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_xfeatures2d.4.0.0.dylib; path = opencv_install/lib/libopencv_xfeatures2d.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25E25E7CCF500FE9A18 /* libopencv_imgproc.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.0.0.dylib; path = opencv_install/lib/libopencv_imgproc.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F25F25E7CCF500FE9A18 /* libopencv_video.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_video.4.0.0.dylib; path = opencv_install/lib/libopencv_video.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F26025E7CCF500FE9A18 /* libopencv_videoio.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videoio.4.0.0.dylib; path = opencv_install/lib/libopencv_videoio.4.0.0.dylib; sourceTree = "<group>"; };
+		2593F26C25E7D11300FE9A18 /* drone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = drone.entitlements; sourceTree = "<group>"; };
+		2593F27025E7D3B400FE9A18 /* libAirLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAirLib.a; path = AirLib/lib/x64/Release/libAirLib.a; sourceTree = "<group>"; };
+		2593F27125E7D3B400FE9A18 /* libMavLinkCom.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMavLinkCom.a; path = AirLib/lib/x64/Release/libMavLinkCom.a; sourceTree = "<group>"; };
+		2593F27225E7D3B400FE9A18 /* librpc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librpc.a; path = AirLib/lib/x64/Release/librpc.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2593F21E25E797A500FE9A18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2593F26725E7CCF500FE9A18 /* libopencv_imgproc.4.0.0.dylib in Frameworks */,
+				2593F27425E7D3B400FE9A18 /* libMavLinkCom.a in Frameworks */,
+				2593F26925E7CCF500FE9A18 /* libopencv_videoio.4.0.0.dylib in Frameworks */,
+				2593F27325E7D3B400FE9A18 /* libAirLib.a in Frameworks */,
+				2593F26425E7CCF500FE9A18 /* libopencv_features2d.4.0.0.dylib in Frameworks */,
+				2593F26225E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib in Frameworks */,
+				2593F26825E7CCF500FE9A18 /* libopencv_video.4.0.0.dylib in Frameworks */,
+				2593F26525E7CCF500FE9A18 /* libopencv_core.4.0.0.dylib in Frameworks */,
+				2593F26625E7CCF500FE9A18 /* libopencv_xfeatures2d.4.0.0.dylib in Frameworks */,
+				2593F26125E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib in Frameworks */,
+				2593F26325E7CCF500FE9A18 /* libopencv_imgcodecs.4.0.0.dylib in Frameworks */,
+				2593F27525E7D3B400FE9A18 /* librpc.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2593F21825E797A500FE9A18 = {
+			isa = PBXGroup;
+			children = (
+				2593F27025E7D3B400FE9A18 /* libAirLib.a */,
+				2593F27125E7D3B400FE9A18 /* libMavLinkCom.a */,
+				2593F27225E7D3B400FE9A18 /* librpc.a */,
+				2593F25925E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib */,
+				2593F25C25E7CCF500FE9A18 /* libopencv_core.4.0.0.dylib */,
+				2593F25B25E7CCF500FE9A18 /* libopencv_features2d.4.0.0.dylib */,
+				2593F25825E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib */,
+				2593F25A25E7CCF500FE9A18 /* libopencv_imgcodecs.4.0.0.dylib */,
+				2593F25E25E7CCF500FE9A18 /* libopencv_imgproc.4.0.0.dylib */,
+				2593F25F25E7CCF500FE9A18 /* libopencv_video.4.0.0.dylib */,
+				2593F26025E7CCF500FE9A18 /* libopencv_videoio.4.0.0.dylib */,
+				2593F25D25E7CCF500FE9A18 /* libopencv_xfeatures2d.4.0.0.dylib */,
+				2593F22325E797A500FE9A18 /* drone */,
+				2593F22225E797A500FE9A18 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2593F22225E797A500FE9A18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2593F22125E797A500FE9A18 /* drone */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2593F22325E797A500FE9A18 /* drone */ = {
+			isa = PBXGroup;
+			children = (
+				2593F26C25E7D11300FE9A18 /* drone.entitlements */,
+				2593F22425E797A500FE9A18 /* main.cpp */,
+			);
+			path = drone;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2593F22025E797A500FE9A18 /* drone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2593F22825E797A500FE9A18 /* Build configuration list for PBXNativeTarget "drone" */;
+			buildPhases = (
+				2593F21D25E797A500FE9A18 /* Sources */,
+				2593F21E25E797A500FE9A18 /* Frameworks */,
+				2593F21F25E797A500FE9A18 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = drone;
+			productName = drone;
+			productReference = 2593F22125E797A500FE9A18 /* drone */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2593F21925E797A500FE9A18 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					2593F22025E797A500FE9A18 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 2593F21C25E797A500FE9A18 /* Build configuration list for PBXProject "drone" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2593F21825E797A500FE9A18;
+			productRefGroup = 2593F22225E797A500FE9A18 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2593F22025E797A500FE9A18 /* drone */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2593F21D25E797A500FE9A18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2593F22525E797A500FE9A18 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2593F22625E797A500FE9A18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2593F22725E797A500FE9A18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2593F22925E797A500FE9A18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = drone/drone.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = HGC4YMS57K;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/opencv_install/include/opencv4\"",
+					"\"$(SRCROOT)/AirLib/include\"",
+					"\"$(SRCROOT)/AirLib/deps/rpclib/include\"",
+					"\"$(SRCROOT)/AirLib/deps/MavLinkCom/include\"",
+					"\"$(SRCROOT)/AirLib/deps/eigen3\"",
+					/usr/local/include,
+				);
+				LD_RUNPATH_SEARCH_PATHS = "\"$(SRCROOT)/opencv_install/lib\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/opencv_install/lib\"",
+					"\"$(SRCROOT)/AirLib/lib\"",
+					"$(PROJECT_DIR)/AirLib/lib/x64/Release",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2593F22A25E797A500FE9A18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = drone/drone.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = HGC4YMS57K;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/opencv_install/include/opencv4\"",
+					"\"$(SRCROOT)/AirLib/include\"",
+					"\"$(SRCROOT)/AirLib/deps/rpclib/include\"",
+					"\"$(SRCROOT)/AirLib/deps/MavLinkCom/include\"",
+					"\"$(SRCROOT)/AirLib/deps/eigen3\"",
+					/usr/local/include,
+				);
+				LD_RUNPATH_SEARCH_PATHS = "\"$(SRCROOT)/opencv_install/lib\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/opencv_install/lib\"",
+					"\"$(SRCROOT)/AirLib/lib\"",
+					"$(PROJECT_DIR)/AirLib/lib/x64/Release",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2593F21C25E797A500FE9A18 /* Build configuration list for PBXProject "drone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2593F22625E797A500FE9A18 /* Debug */,
+				2593F22725E797A500FE9A18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2593F22825E797A500FE9A18 /* Build configuration list for PBXNativeTarget "drone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2593F22925E797A500FE9A18 /* Debug */,
+				2593F22A25E797A500FE9A18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2593F21925E797A500FE9A18 /* Project object */;
+}
