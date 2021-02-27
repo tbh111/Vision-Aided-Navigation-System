@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25047C8525E8DB34002764CA /* SURF_Matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25047C8325E8DB34002764CA /* SURF_Matcher.cpp */; };
 		2593F22525E797A500FE9A18 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2593F22425E797A500FE9A18 /* main.cpp */; };
 		2593F26125E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25825E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib */; };
 		2593F26225E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2593F25925E7CCF500FE9A18 /* libopencv_calib3d.4.0.0.dylib */; };
@@ -35,6 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		25047C8325E8DB34002764CA /* SURF_Matcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SURF_Matcher.cpp; sourceTree = "<group>"; };
+		25047C8425E8DB34002764CA /* SURF_Matcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SURF_Matcher.hpp; sourceTree = "<group>"; };
 		2593F22125E797A500FE9A18 /* drone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = drone; sourceTree = BUILT_PRODUCTS_DIR; };
 		2593F22425E797A500FE9A18 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2593F25825E7CCF500FE9A18 /* libopencv_highgui.4.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.4.0.0.dylib; path = opencv_install/lib/libopencv_highgui.4.0.0.dylib; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 			children = (
 				2593F26C25E7D11300FE9A18 /* drone.entitlements */,
 				2593F22425E797A500FE9A18 /* main.cpp */,
+				25047C8325E8DB34002764CA /* SURF_Matcher.cpp */,
+				25047C8425E8DB34002764CA /* SURF_Matcher.hpp */,
 			);
 			path = drone;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25047C8525E8DB34002764CA /* SURF_Matcher.cpp in Sources */,
 				2593F22525E797A500FE9A18 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +302,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = HGC4YMS57K;
 				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_ARCHS = "EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64=arm64 arm64e armv7 armv7s armv6 armv8 EXCLUDED_ARCHS=$(inherited) $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_$(EFFECTIVE_PLATFORM_SUFFIX)__NATIVE_ARCH_64_BIT_$(NATIVE_ARCH_64_BIT)) arm64";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/opencv_install/include/opencv4\"",
 					"\"$(SRCROOT)/AirLib/include\"",
@@ -324,6 +331,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = HGC4YMS57K;
 				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_ARCHS = "EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64=arm64 arm64e armv7 armv7s armv6 armv8 EXCLUDED_ARCHS=$(inherited) $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_$(EFFECTIVE_PLATFORM_SUFFIX)__NATIVE_ARCH_64_BIT_$(NATIVE_ARCH_64_BIT)) arm64";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/opencv_install/include/opencv4\"",
 					"\"$(SRCROOT)/AirLib/include\"",
