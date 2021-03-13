@@ -32,6 +32,8 @@ This part of system is implemented with python and keras library. The image is s
 
 The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone.
 
+PS: At first, I figured the above function 1-3 on Visual Studio, and when I want to move it on Qt, but I find it's difficult to compile Airlib with mingw, so I grow this thought of develop a upper client.:confused:
+
 #### 5. Future
 
 I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, as the other two members of my team are busy with their courses:sweat_smile:. ~~Later I'll first try to plot the figure of UAV's flight path, and develop a GUI application with Qt 5~~.(This is what I'm doing now, go on!:sunglasses:) Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
