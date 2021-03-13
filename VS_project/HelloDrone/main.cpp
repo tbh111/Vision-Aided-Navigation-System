@@ -153,19 +153,15 @@ void motion(MultirotorRpcLibClient& Client, FILE* fp, Socket_client& S, SURF_Mat
         cout << "get im1" << endl;
         imwrite("im1.jpg", im1);
         auto position = Client.getMultirotorState().getPosition(); // from current location
-        //frame.copyTo(im1);
-        //imshow("im1", im1);
-        Client.moveToPositionAsync(position.x() + 20, position.y(), position.z(), 2);
-        Sleep(5000);
+        Client.moveToPositionAsync(position.x() + 10, position.y(), position.z(), 2)->waitOnLastTask();
         videoPipeline(Client, im2);
         cout << "get im2" << endl;
         imwrite("im2.jpg", im2);
-        //frame.copyTo(im2);
-        //imshow("im2", im2);
-        //waitKey(0);
+        matcher.done_flag = false;
         matcher.img1 = im1;
         matcher.img2 = im2;
-        matcher.start_match();
+        matcher.start_thread();
+
     }
     else if (a == 'o') {
         Mat im1, im2;
@@ -173,20 +169,14 @@ void motion(MultirotorRpcLibClient& Client, FILE* fp, Socket_client& S, SURF_Mat
         cout << "get im1" << endl;
         imwrite("im1.jpg", im1);
         auto position = Client.getMultirotorState().getPosition(); // from current location
-        //frame.copyTo(im1);
-        //imshow("im1", im1);
-        Client.moveToPositionAsync(position.x() - 20, position.y(), position.z(), 2);
-        Sleep(5000);
+        Client.moveToPositionAsync(position.x() + 10, position.y(), position.z(), 2)->waitOnLastTask();
         videoPipeline(Client, im2);
         cout << "get im2" << endl;
         imwrite("im2.jpg", im2);
-        //frame.copyTo(im2);
-        //imshow("im2", im2);
-        //waitKey(0);
+        matcher.done_flag = false;
         matcher.img1 = im1;
         matcher.img2 = im2;
-        matcher.done_flag = true;
-        //matcher.start_match();
+        matcher.start_thread();
     }
 }
 
@@ -221,7 +211,7 @@ int main(int argc, const char* argv[]) {
     FILE* fp = fopen("result.txt", "a");
     msr::airlib::MultirotorRpcLibClient client;
     Mat im1, im2;
-    thread SURF_thread(&SURF_Matcher::start_match, &matcher);
+    
 
     client.confirmConnection();
     cout << "Press Enter to enable API control" << endl; cin.get();
@@ -233,19 +223,18 @@ int main(int argc, const char* argv[]) {
     cout << "Press Enter to takeoff" << endl; cin.get();
     client.takeoffAsync(5)->waitOnLastTask();
     Mat frame;
+    //namedWindow("camera");
     while (1) {
 
         //videoPipeline(client, frame);
- 
+        //imshow("camera", frame);
         motion(client, fp, S, matcher);
-        //videoPipeline(client, frame);
     }
 
     //cout << "Press Enter to land" << endl; cin.get();
     //client.landAsync(5)->waitOnLastTask();
     //fclose(fp);
-    SURF_thread.detach();
-    cout << "SURF thread killed" << endl;
+    
     return 0;
 
     // Mat img1, img2;

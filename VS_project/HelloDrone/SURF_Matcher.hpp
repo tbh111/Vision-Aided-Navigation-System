@@ -35,12 +35,11 @@ public:
     SURF_Matcher();
     SURF_Matcher(Mat input_img1, Mat input_img2);
     ~SURF_Matcher();
-    void start_match();
     void estimatePose(Mat F);
-    void match_parallel();
     void solveICP(std::vector<Point2f> ps1, std::vector<Point2f> ps2);
     Mat img1, img2;
     bool done_flag = false;
+    void SURF_Matcher::start_thread();
 private:
     Mat cam, dist;
     struct SURFDetector;
@@ -48,6 +47,7 @@ private:
     void workBegin();
     void workEnd();
     double getTime();
+    void start_match();
     Mat drawGoodMatches(const Mat& img1,
         const Mat& img2,
         const std::vector<KeyPoint>& keypoints1,

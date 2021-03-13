@@ -63,77 +63,78 @@ struct SURF_Matcher::SURFMatcher
     }
 };
 
+void SURF_Matcher::start_thread() {
+    thread SURF_thread(&SURF_Matcher::start_match, this);
+    SURF_thread.detach();
+}
+
 void SURF_Matcher::start_match() {
-    while (true)
-    {
-        if (done_flag) {
-            cout << "initizing SURF matcher" << endl;
-            //instantiate detectors/matchers
-            SURF_Matcher::SURFDetector surf;
-            SURF_Matcher::SURFMatcher<BFMatcher> matcher;
 
-            //declare input/output
-            std::vector<KeyPoint> keypoints1, keypoints2;
-            std::vector<DMatch> matches;
-            Mat descriptors1, descriptors2;
-            double surf_time = 0.;
-            //-- start of timing section
+    if (done_flag == false) {
+        cout << "initizing SURF matcher" << endl;
+        //instantiate detectors/matchers
+        SURF_Matcher::SURFDetector surf;
+        SURF_Matcher::SURFMatcher<BFMatcher> matcher;
 
-            for (int i = 0; i <= LOOP_NUM; i++)
-            {
-                if (i == 1) workBegin();
-                surf(img1, Mat(), keypoints1, descriptors1);
-                surf(img2, Mat(), keypoints2, descriptors2);
-                matcher.match(descriptors1, descriptors2, matches);
-            }
-            workEnd();
-            std::cout << "FOUND " << keypoints1.size() << " keypoints on first image" << std::endl;
-            std::cout << "FOUND " << keypoints2.size() << " keypoints on second image" << std::endl;
+        //declare input/output
+        std::vector<KeyPoint> keypoints1, keypoints2;
+        std::vector<DMatch> matches;
+        Mat descriptors1, descriptors2;
+        double surf_time = 0.;
+        //-- start of timing section
 
-            surf_time = getTime();
-            std::cout << "SURF run time: " << surf_time / LOOP_NUM << " ms" << std::endl << "\n";
-
-
-            std::vector<Point2f> corner;
-            Mat img_matches = drawGoodMatches(img1, img2, keypoints1, keypoints2, matches, corner);
-
-            // 对齐匹配的点对
-            vector<KeyPoint> alignedpt1, alignedpt2;
-            for (auto i = 0; i < matches.size(); i++) {
-                alignedpt1.push_back(keypoints1[matches[i].queryIdx]);
-                alignedpt2.push_back(keypoints2[matches[i].trainIdx]);
-            }
-            // 取得特征点的像素坐标
-            vector<Point2f> ps1, ps2;
-            for (auto i = 0; i < alignedpt1.size(); i++) {
-                ps1.push_back(alignedpt1[i].pt);
-                ps2.push_back(alignedpt2[i].pt);
-            }
-            // 计算基础矩阵
-            Mat F;
-            F = findFundamentalMat(ps1, ps2, FM_RANSAC);
-            cout << F << endl;
-            estimatePose(F);
-            //-- Show detected matches
-
-            //namedWindow("surf matches", 0);
-            //imshow("surf matches", img_matches);
-            imwrite("match.jpg", img_matches);
-            //waitKey(1000);
-            //destroyAllWindows();
-            cout << "SURF process done" << endl;
-            done_flag = false;
-        }
-        else
+        for (int i = 0; i <= LOOP_NUM; i++)
         {
-            cout << "waiting image" << endl;
+            if (i == 1) workBegin();
+            surf(img1, Mat(), keypoints1, descriptors1);
+            surf(img2, Mat(), keypoints2, descriptors2);
+            matcher.match(descriptors1, descriptors2, matches);
         }
+        workEnd();
+        std::cout << "FOUND " << keypoints1.size() << " keypoints on first image" << std::endl;
+        std::cout << "FOUND " << keypoints2.size() << " keypoints on second image" << std::endl;
+
+        surf_time = getTime();
+        std::cout << "SURF run time: " << surf_time / LOOP_NUM << " ms" << std::endl << "\n";
+
+
+        std::vector<Point2f> corner;
+        Mat img_matches = drawGoodMatches(img1, img2, keypoints1, keypoints2, matches, corner);
+
+        // 对齐匹配的点对
+        vector<KeyPoint> alignedpt1, alignedpt2;
+        for (auto i = 0; i < matches.size(); i++) {
+            alignedpt1.push_back(keypoints1[matches[i].queryIdx]);
+            alignedpt2.push_back(keypoints2[matches[i].trainIdx]);
+        }
+        // 取得特征点的像素坐标
+        vector<Point2f> ps1, ps2;
+        for (auto i = 0; i < alignedpt1.size(); i++) {
+            ps1.push_back(alignedpt1[i].pt);
+            ps2.push_back(alignedpt2[i].pt);
+        }
+        // 计算基础矩阵
+        Mat F;
+        F = findFundamentalMat(ps1, ps2, FM_RANSAC);
+        cout << F << endl;
+        estimatePose(F);
+        //-- Show detected matches
+
+        //namedWindow("surf matches", 0);
+        //imshow("surf matches", img_matches);
+        imwrite("match.jpg", img_matches);
+        //waitKey(1000);
+        //destroyAllWindows();
+        done_flag = true;
+        cout << "SURF process done" << endl;
+    }
+    else
+    {
+        cout << "waiting" << endl;
+        return;
     }
 }
 
-void SURF_Matcher::match_parallel() {
-
-}
 
 Mat SURF_Matcher::drawGoodMatches(const Mat& im1,
     const Mat& im2,
