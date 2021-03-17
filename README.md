@@ -30,7 +30,7 @@ This part of system is implemented with python and keras library. The image is s
 
 #### 4. Upper client
 
-The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone. And you can control the drone with the button on the panel. This progress is done with socket & TCP.
+The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone. And you can control the drone with the button on the panel. This progress is done with socket & TCP. Later I will try to show the location on the map, just like what we see in the map application on phones.
 
 PS: At first, I figured the above function 1-3 on Visual Studio, and when I want to move it on Qt, but I find it's difficult to compile Airlib with mingw, so I grow this thought of develop a upper client.:confused:
 
@@ -38,4 +38,4 @@ PS: At first, I figured the above function 1-3 on Visual Studio, and when I want
 
 I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, as the other two members of my team are busy with their courses:sweat_smile:. Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
 
-Note: I'm a common college student, feel free to contact me for comments on my work:handshake:.
+Note: I'm just a common college student, feel free to contact me for comments on my work:handshake:.
