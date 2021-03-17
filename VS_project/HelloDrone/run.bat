@@ -1,0 +1,1 @@
+start D:/drone/Neighborhood/Neighborhood/AirSimNH -ResX=1024 -ResY=768 -windowed
