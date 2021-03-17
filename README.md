@@ -10,10 +10,10 @@ For lower client(the interface to simulation client):
 On Windows:
 Visual Studio 2019, OpenCV 4.4.0, AirLib 1.2, Eigen 3, C++
 Pycharm community 2020.2.3, Python 3.6, Keras 2.2.0, tensorflow-gpu 1.10.0, Opencv 4.4.0
-On macOS:
+On macOS(not completed):
 MacOS Big Sur 11.2.1, Xcode 12.4, OpenCV 4.0.0, Eigen 3, AirLib 1.2, C++
 For upper client(the interface to users):
-An simple Qt5 Widget Application with mingw7.3.0, Opencv 4.4.0,C++
+An simple Qt5 Widget Application with mingw7.3.0, Opencv 4.4.0, C++
 ```
 
 #### 2. Movement estimation
@@ -30,10 +30,12 @@ This part of system is implemented with python and keras library. The image is s
 
 #### 4. Upper client
 
-The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone.
+The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone. And you can control the drone with the button on the panel. This progress is done with socket & TCP.
 
 PS: At first, I figured the above function 1-3 on Visual Studio, and when I want to move it on Qt, but I find it's difficult to compile Airlib with mingw, so I grow this thought of develop a upper client.:confused:
 
 #### 5. Future
 
-I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, as the other two members of my team are busy with their courses:sweat_smile:. ~~Later I'll first try to plot the figure of UAV's flight path, and develop a GUI application with Qt 5~~.(This is what I'm doing now, go on!:sunglasses:) Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
+I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, as the other two members of my team are busy with their courses:sweat_smile:. Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
+
+Note: I'm a common college student, feel free to contact me for comments on my work:handshake:.
