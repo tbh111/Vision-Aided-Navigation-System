@@ -20,7 +20,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void initMainWindow();
-    void imgProc(float contrast, int brightness);
+    void imgProc(float x, float y);
     void imgShow();
 
 private slots:
@@ -53,5 +53,7 @@ private:
     QTcpSocket *tcpSocket;
     QTcpServer *tcpServer;
     void decode_pkg(QString s);
+    float pix_x = 0;
+    float pix_y = 0;
 };
 #endif // MAINWINDOW_H

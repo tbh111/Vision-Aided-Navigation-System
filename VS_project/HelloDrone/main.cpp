@@ -226,37 +226,37 @@ int main(int argc, const char* argv[]) {
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "forward" << endl;
-            client.moveToPositionAsync(position.x() + 10, position.y(), position.z(), 5);
+            client.moveToPositionAsync(position.x() + 10, position.y(), position.z(), 2)->waitOnLastTask();
         }
         else if (cmd == 'l')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "left" << endl;
-            client.moveToPositionAsync(position.x(), position.y() - 10, position.z(), 5);
+            client.moveToPositionAsync(position.x(), position.y() - 10, position.z(), 2)->waitOnLastTask();
         }
         else if (cmd == 'b')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "backward" << endl;
-            client.moveToPositionAsync(position.x() - 10, position.y(), position.z(), 5);
+            client.moveToPositionAsync(position.x() - 10, position.y(), position.z(), 2)->waitOnLastTask();
         }
         else if (cmd == 'r')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "right" << endl;
-            client.moveToPositionAsync(position.x(), position.y() + 10, position.z(), 5);
+            client.moveToPositionAsync(position.x(), position.y() + 10, position.z(), 2)->waitOnLastTask();
         }
         else if (cmd == 'p')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "up" << endl;
-            client.moveToPositionAsync(position.x(), position.y(), position.z() - 10, 5);
+            client.moveToPositionAsync(position.x(), position.y(), position.z() - 10, 2)->waitOnLastTask();
         }
         else if (cmd == 'd')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "down" << endl;
-            client.moveToPositionAsync(position.x(), position.y(), position.z() + 10, 5);
+            client.moveToPositionAsync(position.x(), position.y(), position.z() + 10, 2)->waitOnLastTask();
         }
         videoPipeline(client, im2);
         cout << "get im2" << endl;

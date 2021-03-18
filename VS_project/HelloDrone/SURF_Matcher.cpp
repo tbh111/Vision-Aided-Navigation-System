@@ -7,8 +7,8 @@
 
 #include "SURF_Matcher.hpp"
 const int LOOP_NUM = 1;
-const int GOOD_PTS_MAX = 50;
-const float GOOD_PORTION = 0.15f;
+const int GOOD_PTS_MAX = 30;
+const float GOOD_PORTION = 0.1f;
 
 int64 work_begin = 0;
 int64 work_end = 0;
@@ -285,4 +285,6 @@ void SURF_Matcher::estimatePose(Mat F, vector<Point2f> ps1, vector<Point2f> ps2)
     ave_y = sum_y / ps2.size();
     cout << "ave_x: " << ave_x << endl;
     cout << "ave_y: " << ave_y << endl;
+    dx = ave_x;
+    dy = ave_y;
 }
