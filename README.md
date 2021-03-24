@@ -1,5 +1,5 @@
 # Vision-Aided-Navigation-System
- A navigation system for UAV based on SIFT/SURF Features & CNN.
+ A navigation system for UAV based on SIFT/SURF Features & CNN.(Not finished:cry:)
 
 #### 1. System environment
 
@@ -9,7 +9,6 @@ This project is based on Airsim library for drone simulation by Microsoft and Un
 For lower client(the interface to simulation client):
 On Windows:
 Visual Studio 2019, OpenCV 4.4.0, AirLib 1.2, Eigen 3, C++
-Pycharm community 2020.2.3, Python 3.6, Keras 2.2.0, tensorflow-gpu 1.10.0, Opencv 4.4.0
 On macOS(not completed):
 MacOS Big Sur 11.2.1, Xcode 12.4, OpenCV 4.0.0, Eigen 3, AirLib 1.2, C++
 For upper client(the interface to users):
@@ -24,9 +23,13 @@ The size of image we use is 640*480, and the average time cost for matching each
 
 #### 3. Location recognition
 
-After getting the movement of UAV, we still need to know where the UAV is. So, to locate the UAV, totally based on the camera on it, here we use a simple CNN: VGG-16/Resnet/Densenet to recognize the location. This method is pretty similar with the technology called search image. Compare the real-time image with the pre-stored map set, calculate the scores with each sliced map, finally we will get the UAV's location.(This method is not very accurate, so I'm considering to do a second recognition in smaller sliced maps.)
+~~After getting the movement of UAV, we still need to know where the UAV is. So, to locate the UAV, totally based on the camera on it, here we use a simple CNN: VGG-16/Resnet/Densenet to recognize the location. This method is pretty similar with the technology called search image. Compare the real-time image with the pre-stored map set, calculate the scores with each sliced map, finally we will get the UAV's location.(This method is not very accurate, so I'm considering to do a second recognition in smaller sliced maps.)~~
 
-This part of system is implemented with python and keras library. The image is sent to this python server by socket & UDP, then it would send the location information back to the main client.
+~~This part of system is implemented with python and keras library. The image is sent to this python server by socket & UDP, then it would send the location information back to the main client.~~
+
+Update 2021.3.24:
+
+It was sad that this method performed poor in reality, I'm looking for the TF-IDF method which is widely used in loop closure in slam.
 
 #### 4. Upper client
 
