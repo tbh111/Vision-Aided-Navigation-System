@@ -31,14 +31,18 @@ Update 2021.3.24:
 
 It was sad that this method performed poor in reality, I'm looking for the TF-IDF method which is widely used in loop closure in slam.
 
+Update 2021.3.27:
+
+It is a pity that the upper methods performs poor, expectedly. So I'm looking for another traditional(no Deep-Learning) method to get over this last obstacle.:weary: I will also upload this bullshit code later.
+
 #### 4. Upper client
 
-The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone. And you can control the drone with the button on the panel. This progress is done with socket & TCP. Later I will try to show the location on the map, just like what we see in the map application on phones.
+The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone. And you can control the drone with the button on the panel. This progress is done with socket & TCP.  The location of the drone will be shown on the map in the Qt client, here I use a simple red dot.
 
 PS: At first, I figured the above function 1-3 on Visual Studio, and when I want to move it on Qt, but I find it's difficult to compile Airlib with mingw, so I grow this thought of develop a upper client.:confused:
 
 #### 5. Future
 
-I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, as the other two members of my team are busy with their courses:sweat_smile:. Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
+I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, ~~as the other two members of my team are busy with their courses:sweat_smile:~~. Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
 
 Note: I'm just a common college student, feel free to contact me for comments on my work:handshake:.
