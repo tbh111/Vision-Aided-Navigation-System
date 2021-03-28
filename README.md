@@ -35,6 +35,9 @@ Update 2021.3.27:
 
 It is a pity that the upper methods performs poor, expectedly. So I'm looking for another traditional(no Deep-Learning) method to get over this last obstacle.:weary: I will also upload this bullshit code later.
 
+Update 2021.3.28:
+I used the same methods as in section 2, that is, matching the image taken by camera with the image database, I will get it tomorrow.
+
 #### 4. Upper client
 
 The upper client is designed to have a GUI, so users can have a better experience. This application can show the environment's map, the location and movement of the drone. And you can control the drone with the button on the panel. This progress is done with socket & TCP.  The location of the drone will be shown on the map in the Qt client, here I use a simple red dot.
