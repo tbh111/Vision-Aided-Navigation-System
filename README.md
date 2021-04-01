@@ -23,20 +23,20 @@ The size of image we use is 640*480, and the average time cost for matching each
 
 #### 3. Location recognition
 
-~~After getting the movement of UAV, we still need to know where the UAV is. So, to locate the UAV, totally based on the camera on it, here we use a simple CNN: VGG-16/Resnet/Densenet to recognize the location. This method is pretty similar with the technology called search image. Compare the real-time image with the pre-stored map set, calculate the scores with each sliced map, finally we will get the UAV's location.(This method is not very accurate, so I'm considering to do a second recognition in smaller sliced maps.)~~
+After getting the movement of UAV, we still need to know where the UAV is. So, to locate the UAV, totally based on the camera on it, here we can use a simple CNN: VGG-16/ResNet50/DenseNet to recognize the location, I choose ResNet50 currently. This method is pretty similar with the technology called search image. Compare the real-time image with the pre-stored map set, calculate the scores with each sliced map, finally we will get the UAV's location. Note that the height of which map and the image are taken should be same as far as possible.
 
-~~This part of system is implemented with python and keras library. The image is sent to this python server by socket & UDP, then it would send the location information back to the main client.~~
+This part of system is implemented with python and keras library. The image is sent to this python server by socket & UDP, then it would send the location information back to the main client.
 
-Update 2021.3.24:
+~~Update 2021.3.24:~~
 
-It was sad that this method performed poor in reality, I'm looking for the TF-IDF method which is widely used in loop closure in slam.
+~~It was sad that this method performed poor in reality, I'm looking for the TF-IDF method which is widely used in loop closure in slam.~~
 
-Update 2021.3.27:
+~~Update 2021.3.27:~~
 
-It is a pity that the upper methods performs poor, expectedly. So I'm looking for another traditional(no Deep-Learning) method to get over this last obstacle.:weary: I will also upload this bullshit code later.
+~~It is a pity that the upper methods performs poor, expectedly. So I'm looking for another traditional(no Deep-Learning) method to get over this last obstacle.:weary: I will also upload this bullshit code later.~~
 
-Update 2021.3.28:
-I used the same methods as in section 2, that is, matching the image taken by camera with the image database, I will get it tomorrow.
+~~Update 2021.3.28:~~
+~~I used the same methods as in section 2, that is, matching the image taken by camera with the image database, I will get it tomorrow.~~
 
 #### 4. Upper client
 
