@@ -2,10 +2,8 @@ import socket
 import struct
 import cv2
 import numpy as np
-import os
-from ResNetMatcher import ResNetMatcher
-print(os.getcwd())
-matcher = ResNetMatcher()
+from VGG import VGGMatcher
+matcher = VGGMatcher()
 server = socket.socket(type=socket.SOCK_DGRAM)
 server.bind(('127.0.0.1', 9999))
 print("waiting...")
@@ -36,8 +34,7 @@ while True:
     img_nparr = np.fromstring(img_recv_all, np.uint8)
     img_decoded = cv2.imdecode(img_nparr, cv2.IMREAD_COLOR)
     cv2.imwrite("123.jpg", img_decoded)
-    result = matcher.match_image("123.jpg")
-    server.send(result.encode('utf-8'))
+    matcher.match_image("123.jpg")
     # cv2.imshow("WHAT YOU GET", img_decoded)
     # cv2.waitKey(10)
 
