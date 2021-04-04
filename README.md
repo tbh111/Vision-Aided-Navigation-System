@@ -1,5 +1,5 @@
 # Vision-Aided-Navigation-System
- A navigation system for UAV based on SIFT/SURF Features & CNN.(Not finished:cry:)
+ A navigation system for UAV based on SIFT/SURF Features & CNN.
 
 #### 1. System environment
 
