@@ -2,7 +2,7 @@
 //  SURF_Matcher.hpp
 //  drone
 //
-//  Created by ÕØ≤©∫≠ on 2021/2/26.
+//  Created by Á´•ÂçöÊ∂µ on 2021/2/26.
 //
 
 #ifndef SURF_Matcher_hpp
@@ -26,6 +26,8 @@
 #include <opencv2/core/eigen.hpp>
 #include <vector>
 #include <thread>
+#include <fstream>
+#include <io.h>
 using namespace cv;
 using namespace cv::xfeatures2d;
 using namespace std;
@@ -39,11 +41,16 @@ public:
     Mat img1, img2;
     bool done_flag = false;
     void start_thread();
+    void start_map_thread();
+    void start_map_match();
+    void gen_descriptor(string path);
+    void read_descriptor(string path);
     float height;
     float dx = 0.0;
     float dy = 0.0;
 private:
     Mat cam, dist;
+    Mat descriptor;
     int direction = 0;
     struct SURFDetector;
     template<class KPMatcher> struct SURFMatcher;
@@ -51,7 +58,12 @@ private:
     void workEnd();
     double getTime();
     void start_match();
+
+
     void estimatePose(Mat F, std::vector<Point2f> ps1, std::vector<Point2f> ps2);
+    void estimatePose1(std::vector<Point2f> ps1, std::vector<Point2f> ps2);
+    void triangulation(Mat R, Mat t);
+    Point2f pixel2cam(Point2f p);
     std::vector<Point2f> obj;
     std::vector<Point2f> scene;
     Mat drawGoodMatches(const Mat& img1,

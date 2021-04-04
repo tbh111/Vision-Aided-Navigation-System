@@ -8,7 +8,7 @@ Socket_python::Socket_python() {
 		cout << "WSAStartup failed " << endl;
 		exit(0);
 	}
-	//ÅÐ¶Ï°æ±¾
+	//åˆ¤æ–­ç‰ˆæœ¬
 	if (LOBYTE(wsadata.wVersion) != 2 || HIBYTE(wsadata.wVersion) != 2)
 	{
 		cout << "wVersion not 2.2" << endl;
@@ -24,7 +24,7 @@ Socket_python::Socket_python() {
 	port = 9999;
 }
 struct Picture {
-	char buffer[4096];  //ÓÃÓÚ·¢ËÍÊý¾Ý»º³åÇø
+	char buffer[4096];  //ç”¨äºŽå‘é€æ•°æ®ç¼“å†²åŒº
 }picture;
 Socket_python::~Socket_python() {
 
@@ -33,10 +33,10 @@ Socket_python::~Socket_python() {
 void openPicture(string data, FILE*& p) {
 	while (1) {
 		//data = "C:\\Users\\13087\\PycharmProjects\\pythonProject\\1615126946055343.jpg";
-		// ÒÔ¶Á / Ð´·½Ê½´ò¿ªÒ»¸ö¶þ½øÖÆÎÄ¼þ£¬Ö»ÔÊÐí¶Á / Ð´Êý¾Ý¡£ÈôÍ¼Æ¬ÎÞ·¨´ò¿ª£¬ÔòÂ·¾¶ÓÐÎÊÌâ£¬¹Ø±ÕÁ¬½Ó
+		// ä»¥è¯» / å†™æ–¹å¼æ‰“å¼€ä¸€ä¸ªäºŒè¿›åˆ¶æ–‡ä»¶ï¼Œåªå…è®¸è¯» / å†™æ•°æ®ã€‚è‹¥å›¾ç‰‡æ— æ³•æ‰“å¼€ï¼Œåˆ™è·¯å¾„æœ‰é—®é¢˜ï¼Œå…³é—­è¿žæŽ¥
 		if (!(p = fopen(data.c_str(), "rb+"))) {
 			//memset(data, 0, sizeof(data));
-			cout << "Í¼Æ¬Â·¾¶³ö´í,ÇëÖØÐÂ³¢ÊÔ£¡" << endl;
+			cout << "å›¾ç‰‡è·¯å¾„å‡ºé”™,è¯·é‡æ–°å°è¯•ï¼" << endl;
 		}
 		else {
 			break;
@@ -46,26 +46,26 @@ void openPicture(string data, FILE*& p) {
 
 int Socket_python::connect(string path) {
 	sockaddr_in saddr;
-	//½ÓÊÕ¶ËµØÖ·³¤¶È
+	//æŽ¥æ”¶ç«¯åœ°å€é•¿åº¦
 	int slen = sizeof(saddr);
 
-	//ÉèÖÃ·þÎñÆ÷µØÖ·
+	//è®¾ç½®æœåŠ¡å™¨åœ°å€
 	saddr.sin_family = AF_INET;
 	saddr.sin_port = htons(port);
 	saddr.sin_addr.S_un.S_addr = inet_addr(ip);
-	char data[100] = { 0 };                    //½ÓÊÜÒ»Ð©¶Ì×Ö½ÚµÄÊý¾Ý»º³åÇø
-	char begin[] = "I BEGIN";       //·¢ËÍÍ¼Æ¬Ç°µÄÈ·ÈÏÐÅÏ¢
-	char end[] = "I FINISHED";         //Íê³ÉÍ¼Æ¬·¢ËÍµÄÍ¨ÖªÐÅÏ¢
+	char data[100] = { 0 };                    //æŽ¥å—ä¸€äº›çŸ­å­—èŠ‚çš„æ•°æ®ç¼“å†²åŒº
+	char begin[] = "I BEGIN";       //å‘é€å›¾ç‰‡å‰çš„ç¡®è®¤ä¿¡æ¯
+	char end[] = "I FINISHED";         //å®Œæˆå›¾ç‰‡å‘é€çš„é€šçŸ¥ä¿¡æ¯
 
-	int iSend = 0;                             //·¢ËÍº¯ÊýµÄ×´Ì¬
-	FILE* p;                                   //´´½¨Ò»¸öÎÄ¼þÖ¸Õë
+	int iSend = 0;                             //å‘é€å‡½æ•°çš„çŠ¶æ€
+	FILE* p;                                   //åˆ›å»ºä¸€ä¸ªæ–‡ä»¶æŒ‡é’ˆ
 
-	//·¢ËÍÍ¼Æ¬Ç°ÏÈºÍ·þÎñÆ÷´ò¸öÕÐºô£¬Óû×¼±¸×´Ì¬£¬ÅÐ¶ÏÐÅÏ¢·¢ËÍÊÇ·ñ³É¹¦£¬Èô²»³É¹¦£¬Ôò·þÎñÆ÷´¦ÓÚ¹Ø±Õ×´Ì¬
+	//å‘é€å›¾ç‰‡å‰å…ˆå’ŒæœåŠ¡å™¨æ‰“ä¸ªæ‹›å‘¼ï¼Œæ¬²å‡†å¤‡çŠ¶æ€ï¼Œåˆ¤æ–­ä¿¡æ¯å‘é€æ˜¯å¦æˆåŠŸï¼Œè‹¥ä¸æˆåŠŸï¼Œåˆ™æœåŠ¡å™¨å¤„äºŽå…³é—­çŠ¶æ€
 	iSend = sendto(client, begin, strlen(begin), 0, (SOCKADDR*)&saddr, slen);
 
 	if (iSend == SOCKET_ERROR) {
-		cout << "·þÎñÆ÷´¦ÓÚ¹Ø±Õ×´Ì¬£¬ÇëÉÔºóÖØÊÔ£¡" << endl;
-		cout << "20sºóÍË³ö¿ØÖÆÌ¨£¡" << endl;
+		cout << "æœåŠ¡å™¨å¤„äºŽå…³é—­çŠ¶æ€ï¼Œè¯·ç¨åŽé‡è¯•ï¼" << endl;
+		cout << "20såŽé€€å‡ºæŽ§åˆ¶å°ï¼" << endl;
 		closesocket(client);
 		WSACleanup();
 		Sleep(20000);
@@ -77,14 +77,14 @@ int Socket_python::connect(string path) {
 
 	openPicture(path, p);
 	fseek(p, 0, SEEK_END);
-	int length = ftell(p);  //»ñÈ¡Í¼Æ¬×Ü³¤¶È
-	fseek(p, 0, SEEK_SET);  //Ö¸Õë»¹Ô­µ½¿ªÊ¼Î»ÖÃ
+	int length = ftell(p);  //èŽ·å–å›¾ç‰‡æ€»é•¿åº¦
+	fseek(p, 0, SEEK_SET);  //æŒ‡é’ˆè¿˜åŽŸåˆ°å¼€å§‹ä½ç½®
 	cout << "Img length: " << length << endl;
 
-	iSend = sendto(client, (char*)&length, sizeof(int), 0, (SOCKADDR*)&saddr, slen); //Ê×ÏÈ·¢ËÍÍ¼Æ¬´óÐ¡(µ¥Î»byte)¸ø½ÓÊÕ¶Ë
+	iSend = sendto(client, (char*)&length, sizeof(int), 0, (SOCKADDR*)&saddr, slen); //é¦–å…ˆå‘é€å›¾ç‰‡å¤§å°(å•ä½byte)ç»™æŽ¥æ”¶ç«¯
 	if (iSend == SOCKET_ERROR) {
-		cout << "ÎÄ¼þ³¤¶ÈÐÅÏ¢·¢ËÍÊ§°Ü£¡" << endl;
-		cout << "10sºóÍË³ö¿ØÖÆÌ¨£¡" << endl;
+		cout << "æ–‡ä»¶é•¿åº¦ä¿¡æ¯å‘é€å¤±è´¥ï¼" << endl;
+		cout << "10såŽé€€å‡ºæŽ§åˆ¶å°ï¼" << endl;
 		closesocket(client);
 		WSACleanup();
 		Sleep(10000);
@@ -92,26 +92,26 @@ int Socket_python::connect(string path) {
 	}
 
 	cout << endl;
-	cout << "¡¤¡¤¡¤¡¤BEGIN SEND PICTURE¡¤¡¤¡¤¡¤" << endl;
+	cout << "Â·Â·Â·Â·BEGIN SEND PICTUREÂ·Â·Â·Â·" << endl;
 	int i = 1;
 
 	while (length > 0) {
-		cout << i << endl;
+		//cout << i << endl;
 
-		memset(picture.buffer, 0, sizeof(picture.buffer));     //³õÊ¼»¯½ÓÊÜ»º³åÇø
-		fread(picture.buffer, sizeof(picture.buffer), 1, p);     //¶ÁÈ¡Í¼Æ¬µ½»º³åÇø
+		memset(picture.buffer, 0, sizeof(picture.buffer));     //åˆå§‹åŒ–æŽ¥å—ç¼“å†²åŒº
+		fread(picture.buffer, sizeof(picture.buffer), 1, p);     //è¯»å–å›¾ç‰‡åˆ°ç¼“å†²åŒº
 
-		int len = sizeof(picture.buffer);                      //»ñÈ¡¶ÁÈ¡µÄ³¤¶È
+		int len = sizeof(picture.buffer);                      //èŽ·å–è¯»å–çš„é•¿åº¦
 
-		/*Èô¶ÁÈ¡µÄ³¤¶È´óÓÚµ±Ç°Í¼Æ¬Ê£Óà×Ü³¤¶È£¬½«½á¹¹ÌåµÄÍ¼Æ¬³¤¶È¸³ÖµÎªÍ¼Æ¬Ê£Óà³¤¶È£¬
-		²¢±ê¼ÇÍ¼Æ¬¶ÁÈ¡½áÊø£»·ñÔòÍ¼Æ¬³¤¶ÈÎª¶ÁÈ¡»º³åÇø³¤¶È£¬Í¼Æ¬±ê¼Ç×´Ì¬ÎªÎ´Íê³É */
+		/*è‹¥è¯»å–çš„é•¿åº¦å¤§äºŽå½“å‰å›¾ç‰‡å‰©ä½™æ€»é•¿åº¦ï¼Œå°†ç»“æž„ä½“çš„å›¾ç‰‡é•¿åº¦èµ‹å€¼ä¸ºå›¾ç‰‡å‰©ä½™é•¿åº¦ï¼Œ
+		å¹¶æ ‡è®°å›¾ç‰‡è¯»å–ç»“æŸï¼›å¦åˆ™å›¾ç‰‡é•¿åº¦ä¸ºè¯»å–ç¼“å†²åŒºé•¿åº¦ï¼Œå›¾ç‰‡æ ‡è®°çŠ¶æ€ä¸ºæœªå®Œæˆ */
 
-		//·¢ËÍÍ¼Æ¬µÄÒ»²¿·Ö£¬·¢ËÍ³É¹¦£¬ÔòÍ¼Æ¬×Ü³¤¶È¼õÈ¥µ±Ç°·¢ËÍµÄÍ¼Æ¬³¤¶È
+		//å‘é€å›¾ç‰‡çš„ä¸€éƒ¨åˆ†ï¼Œå‘é€æˆåŠŸï¼Œåˆ™å›¾ç‰‡æ€»é•¿åº¦å‡åŽ»å½“å‰å‘é€çš„å›¾ç‰‡é•¿åº¦
 		iSend = sendto(client, (char*)&picture, sizeof(struct Picture), 0, (SOCKADDR*)&saddr, slen);
 
 		if (iSend == SOCKET_ERROR) {
-			cout << "·¢ËÍÍ¼Æ¬³ö´í" << endl;
-			cout << "2sºóÍË³ö¿ØÖÆÌ¨£¡" << endl;
+			cout << "å‘é€å›¾ç‰‡å‡ºé”™" << endl;
+			cout << "2såŽé€€å‡ºæŽ§åˆ¶å°ï¼" << endl;
 			closesocket(client);
 			WSACleanup();
 			Sleep(2000);
@@ -127,6 +127,28 @@ int Socket_python::connect(string path) {
 
 
 }
+
+char Socket_python::get_pos() {
+	sockaddr_in saddr;
+	//æŽ¥æ”¶ç«¯åœ°å€é•¿åº¦
+	int slen = sizeof(saddr);
+
+	//è®¾ç½®æœåŠ¡å™¨åœ°å€
+	saddr.sin_family = AF_INET;
+	saddr.sin_port = htons(port);
+	saddr.sin_addr.S_un.S_addr = inet_addr(ip);
+	char buf[1] = { '\0' };
+	int iRecv = recv(client, buf, 1, 0);
+	if (iRecv > 0) {
+		cout << "received data" << buf << endl;
+	}
+	else
+	{
+		cout << "waiting" << endl;
+	}
+	return buf[0];
+}
+
 int Socket_python::close() {
 	closesocket(client);
 	WSACleanup();

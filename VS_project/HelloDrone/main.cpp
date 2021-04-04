@@ -2,7 +2,7 @@
 //main.cpp
 //drone
 
-//Created by ÕØ≤©∫≠ on 2021/2/25.
+//Created by Á´•ÂçöÊ∂µ on 2021/2/25.
 
 
 #include <common/common_utils/StrictMode.hpp>
@@ -17,6 +17,7 @@ STRICT_MODE_ON
 #include <common/common_utils/FileSystem.hpp>
 #include <iostream>
 #include <cstdio>
+#include <cstdlib>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/core/utility.hpp>
@@ -61,7 +62,7 @@ void videoPipeline(MultirotorRpcLibClient& Client, Mat& im) {
 
 }
 
-std::string saveOneImage(MultirotorRpcLibClient& Client, FILE* f)
+std::string saveOneImage(MultirotorRpcLibClient& Client, FILE* f, int index=0)
 {
     typedef ImageCaptureBase::ImageRequest ImageRequest;
     typedef ImageCaptureBase::ImageResponse ImageResponse;
@@ -69,13 +70,13 @@ std::string saveOneImage(MultirotorRpcLibClient& Client, FILE* f)
     typedef common_utils::FileSystem FileSystem;
     std::vector<ImageRequest> request = { ImageRequest("3", ImageType::Scene) };
     const std::vector<ImageResponse>& response = Client.simGetImages(request);
-    auto barometer_data = Client.getBarometerData();
-    auto gps_data = Client.getGpsData();
-    cout << gps_data.gnss.time_utc << endl;
+    //auto barometer_data = Client.getBarometerData();
+    //auto gps_data = Client.getGpsData();
+    //cout << gps_data.gnss.time_utc << endl;
     std::string path;
     Mat img;
     if (response.size() > 0) {
-        path = "D:/drone/pic3/" + to_string(gps_data.gnss.time_utc) + ".jpg";
+        path = "D:/drone/pic2/" + to_string(index) + ".jpg";
         for (const ImageResponse& image_info : response) {
             // cout << "Image uint8 size: " << image_info.image_data_uint8.size() << endl;
             // cout << "Image float size: " << image_info.image_data_float.size() << endl;
@@ -87,14 +88,14 @@ std::string saveOneImage(MultirotorRpcLibClient& Client, FILE* f)
             //cv::Mat dest = convertVector2Mat(image_info.image_data_uint8, 3, 1280);
             cv::imwrite(path, im);
             //write time strap and GPS information into text file
-            fprintf(f, "%llu", gps_data.gnss.time_utc);
-            fprintf(f, ",");
-            fprintf(f, "%.7f", gps_data.gnss.geo_point.altitude);
-            fprintf(f, ",");
-            fprintf(f, "%.7f", gps_data.gnss.geo_point.latitude);
-            fprintf(f, ",");
-            fprintf(f, "%.7f", gps_data.gnss.geo_point.longitude);
-            fprintf(f, "\n");
+            //fprintf(f, "%llu", gps_data.gnss.time_utc);
+            //fprintf(f, ",");
+            //fprintf(f, "%.7f", gps_data.gnss.geo_point.altitude);
+            //fprintf(f, ",");
+            //fprintf(f, "%.7f", gps_data.gnss.geo_point.latitude);
+            //fprintf(f, ",");
+            //fprintf(f, "%.7f", gps_data.gnss.geo_point.longitude);
+            //fprintf(f, "\n");
         }
     }
     return path;
@@ -137,12 +138,12 @@ void motion(MultirotorRpcLibClient& Client, FILE* fp, Socket_python& S, SURF_Mat
     }
     else if (a == 'r') {
         string path;
-        saveOneImage(Client, fp);
+        saveOneImage(Client, fp, 0);
     }
 
     else if (a == 'm') {
         
-        std::string path = saveOneImage(Client, fp);
+        std::string path = saveOneImage(Client, fp, 0);
         S.connect(path);
     }
     else if (a == 'p') {
@@ -185,20 +186,21 @@ void getData(MultirotorRpcLibClient& Client, FILE* fp) {
     Mat frame;
     string path;
     cout << Client.simGetVehiclePose().position << endl;
-    Pose start_pos = Pose(Vector3r(0, 0, -80), Quaternionr(1, 0, 0, 0));
-    auto time = Client.getGpsData().gnss.time_utc;
+    Pose start_pos = Pose(Vector3r(0, 0, -40), Quaternionr(1, 0, 0, 0));
+    //auto time = Client.getGpsData().gnss.time_utc;
     Client.simSetVehiclePose(start_pos, 0);
-
-    for (auto i = -100; i <= 100; i = i + 100)
+    int count = 0;
+    for (auto i = -100; i <= 100; i = i + 10)
     {
-        for (auto j = -120; j <= 120; j = j + 120)
+        for (auto j = -120; j <= 120; j = j + 10)
         {
-            Pose current_pos = Pose(Vector3r(i, j, -80), Quaternionr(1, 0, 0, 0));
+            Pose current_pos = Pose(Vector3r(i, j, -50), Quaternionr(1, 0, 0, 0));
             Client.simSetVehiclePose(current_pos, 0);
             cout << "current pose" << Client.simGetVehiclePose().position << endl;
-            Sleep(1000);
-            //saveOneImage(Client, fp, path);
-            Sleep(1000);
+            //Sleep(1000);
+            saveOneImage(Client, fp, count);
+            //Sleep(1000);
+            count++;
         }
     }
 }
@@ -207,17 +209,39 @@ int main(int argc, const char* argv[]) {
     Socket_python S;
     Socket_client S_c;
     SURF_Matcher matcher;
+
     FILE* fp = fopen("result.txt", "a");
     MultirotorRpcLibClient client;
     Mat im1, im2;
-
+    char cmd[100] = "D:/drone/python/dist/socket_server/socket_server.exe";
+    FILE* pipe = _popen(cmd, "r");
+    if (!pipe) {
+       cout << "cannot initialize python client" << endl;
+       return 0;
+    }
+    cout << "initialize python client success" << endl;
     S_c.connect_qt();
-    client.confirmConnection();
-    client.enableApiControl(true);
+     
+    try
+    {
+        client.confirmConnection();
+        client.enableApiControl(true);
+    }
+    catch (rpc::rpc_error& e)
+    {
+        std::string msg = e.get_error().as<std::string>();
+        std::cout << "Exception raised by the API, something went wrong." << std::endl << msg << std::endl;
+    }
+
     client.takeoffAsync(5)->waitOnLastTask();
+
     while (true)
     {
         char cmd = S_c.read_data();
+        if (cmd == 'x')
+        {
+            continue;
+        }
         videoPipeline(client, im1);
         cout << "get im1" << endl;
         imwrite("im1.jpg", im1);
@@ -226,37 +250,37 @@ int main(int argc, const char* argv[]) {
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "forward" << endl;
-            client.moveToPositionAsync(position.x() + 10, position.y(), position.z(), 2)->waitOnLastTask();
+            client.moveToPositionAsync(position.x() + 10, position.y(), position.z(), 1)->waitOnLastTask();
         }
         else if (cmd == 'l')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "left" << endl;
-            client.moveToPositionAsync(position.x(), position.y() - 10, position.z(), 2)->waitOnLastTask();
+            client.moveToPositionAsync(position.x(), position.y() - 10, position.z(), 1)->waitOnLastTask();
         }
         else if (cmd == 'b')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "backward" << endl;
-            client.moveToPositionAsync(position.x() - 10, position.y(), position.z(), 2)->waitOnLastTask();
+            client.moveToPositionAsync(position.x() - 10, position.y(), position.z(), 1)->waitOnLastTask();
         }
         else if (cmd == 'r')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "right" << endl;
-            client.moveToPositionAsync(position.x(), position.y() + 10, position.z(), 2)->waitOnLastTask();
+            client.moveToPositionAsync(position.x(), position.y() + 10, position.z(), 1)->waitOnLastTask();
         }
         else if (cmd == 'p')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "up" << endl;
-            client.moveToPositionAsync(position.x(), position.y(), position.z() - 10, 2)->waitOnLastTask();
+            client.moveToPositionAsync(position.x(), position.y(), position.z() - 10, 1)->waitOnLastTask();
         }
         else if (cmd == 'd')
         {
             auto position = client.getMultirotorState().getPosition();
             cout << "down" << endl;
-            client.moveToPositionAsync(position.x(), position.y(), position.z() + 10, 2)->waitOnLastTask();
+            client.moveToPositionAsync(position.x(), position.y(), position.z() + 10, 1)->waitOnLastTask();
         }
         videoPipeline(client, im2);
         cout << "get im2" << endl;
@@ -276,25 +300,11 @@ int main(int argc, const char* argv[]) {
         S_c.send_data(gps_pos.x(), gps_pos.y(), gps_pos.z(), "gps");
     }
 
-    //client.confirmConnection();
-    //cout << "Press Enter to enable API control" << endl; cin.get();
-    //client.enableApiControl(true);
-
-    //cout << "Press Enter to arm the drone" << endl; cin.get();
-    //client.armDisarm(true);
-
-    //cout << "Press Enter to takeoff" << endl; cin.get();
-    //client.takeoffAsync(5)->waitOnLastTask();
-
-    //cout << "Press Enter to land" << endl; cin.get();
-    //client.landAsync(5)->waitOnLastTask();
-    //fclose(fp);
+    fclose(fp);
     S.close();
+    S_c.close_qt();
     return 0;
 
-    // Mat img1, img2;
-    // SURF_Matcher matcher(img1, img2);
-    // matcher.start_match();
 
 }
 

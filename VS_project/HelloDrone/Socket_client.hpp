@@ -23,10 +23,10 @@ private:
 	char* ip;
 	int port;
 	SOCKET s_server;
-	//·şÎñ¶ËµØÖ·¿Í»§¶ËµØÖ·
+	//æœåŠ¡ç«¯åœ°å€å®¢æˆ·ç«¯åœ°å€
 	SOCKADDR_IN server_addr;
-	int slen = sizeof(server_addr);					//½ÓÊÕ¶ËµØÖ·³¤¶È
-	int iSend = 0;								//·¢ËÍº¯ÊıµÄ×´Ì¬
+	int slen = sizeof(server_addr);					//æ¥æ”¶ç«¯åœ°å€é•¿åº¦
+	int iSend = 0;								//å‘é€å‡½æ•°çš„çŠ¶æ€
 	int iRecv = 0;
 };
 

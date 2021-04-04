@@ -9,6 +9,7 @@
 #include <opencv.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
+#include <string>
 using namespace std;
 using namespace cv;
 #define BuffSize 1024
@@ -17,6 +18,7 @@ public:
 	Socket_python();
 	~Socket_python();
 	int connect(string path);
+	char get_pos();
 	int close();
 	
 private:

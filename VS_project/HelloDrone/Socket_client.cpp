@@ -7,7 +7,7 @@ Socket_client::Socket_client() {
 		cout << "WSAStartup failed " << endl;
 		exit(0);
 	}
-	//ÅĞ¶Ï°æ±¾
+	//åˆ¤æ–­ç‰ˆæœ¬
 	if (LOBYTE(wsadata.wVersion) != 2 || HIBYTE(wsadata.wVersion) != 2)
 	{
 		cout << "wVersion not 2.2" << endl;
@@ -31,31 +31,31 @@ Socket_client::~Socket_client() {
 int Socket_client::connect_qt() {
 
 
-	//ÉèÖÃ·şÎñÆ÷µØÖ·
+	//è®¾ç½®æœåŠ¡å™¨åœ°å€
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
 	server_addr.sin_addr.S_un.S_addr = inet_addr(ip);
 	s_server = socket(AF_INET, SOCK_STREAM, 0);
 
 	if (connect(s_server, (SOCKADDR*)&server_addr, sizeof(SOCKADDR)) == SOCKET_ERROR) {
-		cout << "·şÎñÆ÷Á¬½ÓÊ§°Ü£¡" << endl;
+		cout << "æœåŠ¡å™¨è¿æ¥å¤±è´¥ï¼" << endl;
 		WSACleanup();
 	}
 	else {
-		cout << "·şÎñÆ÷Á¬½Ó³É¹¦£¡" << endl;
+		cout << "æœåŠ¡å™¨è¿æ¥æˆåŠŸï¼" << endl;
 	}
 
-	char data[100] = { 0 };						//½ÓÊÜÒ»Ğ©¶Ì×Ö½ÚµÄÊı¾İ»º³åÇø
-	char begin[] = "BEGIN";					//·¢ËÍÍ¼Æ¬Ç°µÄÈ·ÈÏĞÅÏ¢
+	char data[100] = { 0 };						//æ¥å—ä¸€äº›çŸ­å­—èŠ‚çš„æ•°æ®ç¼“å†²åŒº
+	char begin[] = "BEGIN";					//å‘é€å›¾ç‰‡å‰çš„ç¡®è®¤ä¿¡æ¯
 
-	//·¢ËÍÇ°ÏÈºÍ·şÎñÆ÷´ò¸öÕĞºô£¬Óû×¼±¸×´Ì¬£¬ÅĞ¶ÏĞÅÏ¢·¢ËÍÊÇ·ñ³É¹¦£¬Èô²»³É¹¦£¬Ôò·şÎñÆ÷´¦ÓÚ¹Ø±Õ×´Ì¬
+	//å‘é€å‰å…ˆå’ŒæœåŠ¡å™¨æ‰“ä¸ªæ‹›å‘¼ï¼Œæ¬²å‡†å¤‡çŠ¶æ€ï¼Œåˆ¤æ–­ä¿¡æ¯å‘é€æ˜¯å¦æˆåŠŸï¼Œè‹¥ä¸æˆåŠŸï¼Œåˆ™æœåŠ¡å™¨å¤„äºå…³é—­çŠ¶æ€
 	//iSend = sendto(s_server, begin, strlen(begin), 0, (SOCKADDR*)&s_server, slen);
 	cout << "Client: " << begin << endl;
 	return 0;
 }
 
 void Socket_client::send_data(float x, float y, float z, string cmd) {
-	char end[] = "send one package\n";					//Íê³É·¢ËÍµÄÍ¨ÖªĞÅÏ¢
+	char end[] = "send one package\n";					//å®Œæˆå‘é€çš„é€šçŸ¥ä¿¡æ¯
 
 	char buf1[20] = "dx";
 	char buf2[20] = "dy";

@@ -2,7 +2,7 @@
 //  SURF_Matcher.cpp
 //  drone
 //
-//  Created by Í¯²©º­ on 2021/2/26.
+//  Created by ç«¥åšæ¶µ on 2021/2/26.
 //
 
 #include "SURF_Matcher.hpp"
@@ -68,6 +68,85 @@ void SURF_Matcher::start_thread() {
     SURF_thread.detach();
 }
 
+void SURF_Matcher::start_map_thread() {
+    thread SURF_map_thread(&SURF_Matcher::start_map_match, this);
+    SURF_map_thread.detach();
+}
+
+static void getAllFiles(string path, vector<string>& files, string fileType)
+{
+    // æ–‡ä»¶å¥æŸ„
+    intptr_t hFile = 0;
+    // æ–‡ä»¶ä¿¡æ¯
+    struct _finddata_t fileinfo;
+
+    string p;
+
+    if ((hFile = _findfirst(p.assign(path).append("\\*" + fileType).c_str(), &fileinfo)) != -1) {
+        do {
+            // ä¿å­˜æ–‡ä»¶çš„å…¨è·¯å¾„
+            files.push_back(p.assign(path).append("\\").append(fileinfo.name));
+
+        } while (_findnext(hFile, &fileinfo) == 0); //å¯»æ‰¾ä¸‹ä¸€ä¸ªï¼ŒæˆåŠŸè¿”å›0ï¼Œå¦åˆ™-1
+
+        _findclose(hFile);
+    }
+}
+
+void SURF_Matcher::gen_descriptor(string path) {
+    //Mat srcimg = imread(path);
+    vector<string> filenames;
+    getAllFiles(path, filenames, ".jpg");
+    for (int i = 0; i < filenames.size(); i++) {
+        cout << "processing " << filenames[i] << endl;
+        Mat srcimg = imread(filenames[i]);
+        SURF_Matcher::SURFDetector surf;
+        SURF_Matcher::SURFMatcher<BFMatcher> matcher;
+        std::vector<KeyPoint> keypoints1;
+        Mat descriptors1;
+        surf(srcimg, Mat(), keypoints1, descriptors1);
+        string config_file = filenames[i].substr(0, filenames[i].rfind('.')) + ".yaml";
+        FileStorage fs(config_file, FileStorage::WRITE);
+        fs << "SURF_descriptor" << descriptors1;
+        fs.release();
+    }
+}
+
+void SURF_Matcher::read_descriptor(string path) {
+    FileStorage fs(path, FileStorage::READ);
+    fs["SURF_descriptor"] >> descriptor;
+}
+
+void SURF_Matcher::start_map_match() {
+    SURF_Matcher::SURFDetector surf;
+    SURF_Matcher::SURFMatcher<BFMatcher> matcher;
+    std::vector<KeyPoint> keypoints1, keypoints2;
+    std::vector<DMatch> matches;
+    Mat descriptors1;
+    double surf_time = 0.;
+    workBegin();
+    surf(img1, Mat(), keypoints1, descriptors1);
+    for (int i = 0; i < 9; i++) {
+        read_descriptor("D:\\drone\\pic5\\" + to_string(i) + ".yaml");
+        matcher.match(descriptors1, descriptor, matches);
+
+        std::sort(matches.begin(), matches.end());
+        std::vector< DMatch > good_matches;
+        double minDist = matches.front().distance;
+        double maxDist = matches.back().distance;
+
+        const int ptsPairs = std::min(GOOD_PTS_MAX, (int)(matches.size() * GOOD_PORTION));
+        for (int i = 0; i < ptsPairs; i++)
+        {
+            good_matches.push_back(matches[i]);
+        }
+        std::cout << "\nMax distance: " << maxDist << std::endl;
+        std::cout << "Min distance: " << minDist << std::endl;
+
+    }
+
+}
+
 void SURF_Matcher::start_match() {
 
     if (done_flag == false) {
@@ -101,30 +180,26 @@ void SURF_Matcher::start_match() {
         std::vector<Point2f> corner;
         Mat img_matches = drawGoodMatches(img1, img2, keypoints1, keypoints2, matches, corner);
 
-        // ¶ÔÆëÆ¥ÅäµÄµã¶Ô
-        vector<KeyPoint> alignedpt1, alignedpt2;
-        for (auto i = 0; i < matches.size(); i++) {
-            alignedpt1.push_back(keypoints1[matches[i].queryIdx]);
-            alignedpt2.push_back(keypoints2[matches[i].trainIdx]);
-        }
-        // È¡µÃÌØÕ÷µãµÄÏñËØ×ø±ê
-        vector<Point2f> ps1, ps2;
-        for (auto i = 0; i < alignedpt1.size(); i++) {
-            ps1.push_back(alignedpt1[i].pt);
-            ps2.push_back(alignedpt2[i].pt);
-        }
-        // ¼ÆËã»ù´¡¾ØÕó
-        Mat F;
-        F = findFundamentalMat(ps1, ps2, FM_RANSAC);
-        cout << F << endl;
-        estimatePose(F, obj, scene);
-        //-- Show detected matches
+        //// å¯¹é½åŒ¹é…çš„ç‚¹å¯¹
+        //vector<KeyPoint> alignedpt1, alignedpt2;
+        //for (auto i = 0; i < matches.size(); i++) {
+        //    alignedpt1.push_back(keypoints1[matches[i].queryIdx]);
+        //    alignedpt2.push_back(keypoints2[matches[i].trainIdx]);
+        //}
+        //// å–å¾—ç‰¹å¾ç‚¹çš„åƒç´ åæ ‡
+        //vector<Point2f> ps1, ps2;
+        //for (auto i = 0; i < alignedpt1.size(); i++) {
+        //    ps1.push_back(alignedpt1[i].pt);
+        //    ps2.push_back(alignedpt2[i].pt);
+        //}
+        // è®¡ç®—åŸºç¡€çŸ©é˜µ
+        //Mat F;
+        //F = findFundamentalMat(ps1, ps2, FM_RANSAC);
+        //cout << F << endl;
+        //estimatePose(F, obj, scene);
+        estimatePose1(obj, scene);
 
-        //namedWindow("surf matches", 0);
-        //imshow("surf matches", img_matches);
         imwrite("match.jpg", img_matches);
-        //waitKey(1000);
-        //destroyAllWindows();
         done_flag = true;
         cout << "SURF process done" << endl;
     }
@@ -169,10 +244,12 @@ Mat SURF_Matcher::drawGoodMatches(const Mat& im1,
     //-- Localize the object
     //std::vector<Point2f> obj;
     //std::vector<Point2f> scene;
-
+    obj.clear();
+    scene.clear();
     for (size_t i = 0; i < good_matches.size(); i++)
     {
         //-- Get the keypoints from the good matches
+
         obj.push_back(keypoints1[good_matches[i].queryIdx].pt);
         scene.push_back(keypoints2[good_matches[i].trainIdx].pt);
     }
@@ -202,28 +279,111 @@ Mat SURF_Matcher::drawGoodMatches(const Mat& im1,
     line(img_matches,
         scene_corners[3] + Point2f((float)img1.cols, 0), scene_corners[0] + Point2f((float)img1.cols, 0),
         Scalar(0, 255, 0), 2, LINE_AA);
-    cout << scene_corners[0] << endl;
-    cout << scene_corners[1] << endl;
-    cout << scene_corners[2] << endl;
-    cout << scene_corners[3] << endl;
-    if (scene_corners[1].y < 0) {
-        cout << "backward" << endl;
-        direction = -1;
-    }
-    else {
-        cout << "forward" << endl;
-        direction = 1;
-    }
+    //cout << scene_corners[0] << endl;
+    //cout << scene_corners[1] << endl;
+    //cout << scene_corners[2] << endl;
+    //cout << scene_corners[3] << endl;
+    //if (scene_corners[1].y < 0) {
+    //    cout << "backward" << endl;
+    //    direction = -1;
+    //}
+    //else {
+    //    cout << "forward" << endl;
+    //    direction = 1;
+    //}
     return img_matches;
 }
 
+
+
 void SURF_Matcher::solveICP(vector<Point2f> ps1, vector<Point2f> ps2) {
-    // Ê¹ÓÃopencv Surface Matching Ä£¿éÖĞµÄICPº¯Êı£¬ Æ¥ÅäÈıÎ¬µãÔÆ -> Ê¹ÓÃAirsimÖĞÉî¶ÈÏà»ú
-    // ºóĞøÍê³É
+    // ä½¿ç”¨opencv Surface Matching æ¨¡å—ä¸­çš„ICPå‡½æ•°ï¼Œ åŒ¹é…ä¸‰ç»´ç‚¹äº‘ -> ä½¿ç”¨Airsimä¸­æ·±åº¦ç›¸æœº
+    // åç»­å®Œæˆ
+}
+
+
+
+Point2f SURF_Matcher::pixel2cam(Point2f p)
+{
+    return Point2f((p.x - cam.at<float>(0, 2)) / cam.at<float>(0, 0),
+                   (p.y - cam.at<float>(1, 2)) / cam.at<float>(1, 1));
+}
+
+void SURF_Matcher::triangulation(Mat R, Mat t)
+{
+    Mat T1 = (Mat_<float>(3, 4) <<
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0);
+    Mat T2 = (Mat_<float>(3, 4) <<
+        R.at<double>(0, 0), R.at<double>(0, 1), R.at<double>(0, 2), t.at<double>(0, 0),
+        R.at<double>(1, 0), R.at<double>(1, 1), R.at<double>(1, 2), t.at<double>(1, 0),
+        R.at<double>(2, 0), R.at<double>(2, 1), R.at<double>(2, 2), t.at<double>(2, 0)
+        );
+    vector<Point2f> pts_1, pts_2;
+    for (int i = 0; i < obj.size(); i++) {
+        pts_1.push_back(pixel2cam(scene[i]));
+        pts_2.push_back(pixel2cam(obj[i]));
+    }
+    Mat pts_4d;
+    cv::triangulatePoints(T1, T2, pts_1, pts_2, pts_4d);
+    for (int i = 0; i < pts_4d.cols; i++) {
+        Mat x = pts_4d.col(i);
+        x /= x.at<float>(3, 0); // å½’ä¸€åŒ–
+        cout << x.at<float>(0, 0) << " " << x.at<float>(1, 0) << " " << x.at<float>(2, 0) << endl;
+    }
+    pts_1.clear();
+    pts_2.clear();
+}
+
+void SURF_Matcher::estimatePose1(vector<Point2f> ps1, vector<Point2f> ps2) {
+    // ä¼°è®¡ç›¸æœºå†…å‚
+    double CameraFOV = 90;
+    double fx = img1.rows / (2 * tan(CameraFOV * M_PI / 360));
+    double fy = fx;
+    double cu = img1.rows / 2;
+    double cv = img1.cols / 2;
+    cam = (Mat_<float>(3, 3) << fx, 0, cu, 0, fy, cv, 0, 0, 1);
+    dist = (Mat_<float>(4, 1) << 0, 0, 0, 0);
+    //è®¡ç®—æœ¬å¾çŸ©é˜µ
+    Mat E = findEssentialMat(ps1, ps2, cam, RANSAC);
+    Mat R, t;
+    recoverPose(E, ps1, ps2, cam, R, t);
+    // è®¡ç®—åæ ‡å˜åŒ–é‡
+    Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> R_n;
+    Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> T_n;
+    cv2eigen(R, R_n);
+    cv2eigen(t, T_n);
+    Eigen::Vector3f P_oc;
+    P_oc = -R_n.inverse() * T_n;
+    string str1 = to_string(P_oc(0));
+    string str2 = to_string(P_oc(1));
+    string str3 = to_string(P_oc(2));
+    cout << "x:" << str1 << endl;
+    cout << "y:" << str2 << endl;
+    cout << "z:" << str3 << endl;
+
+    vector<Point2f> distance(obj.size());
+    float ave_x, ave_y;
+    float sum_x = 0.0, sum_y = 0.0;
+    for (auto i = 0; i < obj.size(); i++) {
+        distance[i].x = (obj[i].x - scene[i].x) / (fx / height);
+        distance[i].y = (obj[i].y - scene[i].y) / (fy / height);
+        cout << distance[i] << endl;
+        sum_x += distance[i].x;
+        sum_y += distance[i].y;
+    }
+    ave_x = sum_x / obj.size();
+    ave_y = sum_y / obj.size();
+    cout << "ave_x: " << ave_x << endl;
+    cout << "ave_y: " << ave_y << endl;
+    dx = ave_x;
+    dy = ave_y;
+
 }
 
 void SURF_Matcher::estimatePose(Mat F, vector<Point2f> ps1, vector<Point2f> ps2) {
-    // ¹À¼ÆÏà»úÄÚ²Î
+    // ä¼°è®¡ç›¸æœºå†…å‚
     double CameraFOV = 90;
     double fx = img1.rows / (2 * tan(CameraFOV * M_PI / 360));
     double fy = fx;
@@ -246,11 +406,12 @@ void SURF_Matcher::estimatePose(Mat F, vector<Point2f> ps1, vector<Point2f> ps2)
     //    Mat_<double> rvec, tvec;
     //    rvec = u * W * vt;
     //    tvec = u1;
+    cout << "svd.u" << svd.u << endl;
     cout << "rotation matrix" << R << endl;
     cout << "translation vector" << t << endl;
 
 
-    // ¼ÆËã×ø±ê±ä»¯Á¿
+    // è®¡ç®—åæ ‡å˜åŒ–é‡
     Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> R_n;
     Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> T_n;
     cv2eigen(R, R_n);
@@ -263,6 +424,8 @@ void SURF_Matcher::estimatePose(Mat F, vector<Point2f> ps1, vector<Point2f> ps2)
     cout << "x:" << str1 << endl;
     cout << "y:" << str2 << endl;
     cout << "z:" << str3 << endl;
+    //dx = P_oc(0);
+    //dy = P_oc(1);
 
     vector<Point2f> distance(ps1.size());
     float ave_x, ave_y;
@@ -276,8 +439,8 @@ void SURF_Matcher::estimatePose(Mat F, vector<Point2f> ps1, vector<Point2f> ps2)
         //sum_y += distance[i].y;
         distance[i].x = (ps1[i].x - ps2[i].x) / (fx / height);
         distance[i].y = (ps1[i].y - ps2[i].y) / (fy / height);
-        cout << "pt: " << i << " ";
-        cout << distance[i] << endl;
+        //cout << "pt: " << i << " ";
+        //cout << distance[i] << endl;
         sum_x += distance[i].x;
         sum_y += distance[i].y;
     }
