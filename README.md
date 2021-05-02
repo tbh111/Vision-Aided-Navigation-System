@@ -1,5 +1,5 @@
 # Vision-Aided-Navigation-System
- A navigation system for UAV based on SIFT/SURF Features & CNN.
+ A navigation system for UAV based on SIFT/SURF Features & CNN(finished).
 
 #### 1. System environment
 
@@ -12,7 +12,7 @@ Visual Studio 2019, OpenCV 4.4.0, AirLib 1.2, Eigen 3, C++
 On macOS(not completed):
 MacOS Big Sur 11.2.1, Xcode 12.4, OpenCV 4.0.0, Eigen 3, AirLib 1.2, C++
 For upper client(the interface to users):
-An simple Qt5 Widget Application with mingw7.3.0, Opencv 4.4.0, C++
+A simple Qt5 Widget Application with mingw7.3.0, Opencv 4.4.0, C++
 ```
 
 #### 2. Movement estimation
