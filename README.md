@@ -46,6 +46,6 @@ PS: At first, I figured the above function 1-3 on Visual Studio, and when I want
 
 #### 5. Future
 
-I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, ~~as the other two members of my team are busy with their courses:sweat_smile:~~. Maybe, I will move this system on my Jaston nano, as it is more similar to actual applications:smile:.
+I'm struggling to finish this project before April, 2021, the deadline of ourCollege Students' Innovative Entrepreneurial Training Plan Program(national grade) in DLUT, ~~as the other two members of my team are busy with their courses:sweat_smile:~~. Maybe, I will move this system on my Jetson nano, as it is more similar to actual applications:smile:.
 
 Note: I'm just a common college student, feel free to contact me for comments on my work:handshake:.
